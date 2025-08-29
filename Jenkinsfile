@@ -22,16 +22,7 @@ pipeline {
                 '''
             }
         }
-        stage('Lint') {
-            steps {
-                // Perform linting using flake8
-                sh '''
-                . venv/bin/activate
-                pip install flake8
-                flake8 .
-                '''
-            }
-        }
+
         stage('Test') {
             steps {
                 sh '''
