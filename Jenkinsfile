@@ -6,13 +6,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout source code from GitHub
                 git url: 'https://github.com/kingb0611/snow-connect.git', branch: 'master'
             }
         }
         stage('Setup Python Env') {
             steps {
-                // Install Python and dependencies including boto3
                 sh '''
                 python3 -m venv venv
                 . venv/bin/activate
@@ -22,7 +20,6 @@ pipeline {
                 '''
             }
         }
-
         stage('Test') {
             steps {
                 withCredentials([
@@ -38,7 +35,6 @@ pipeline {
                 }
             }
         }
-
         stage('Get AWS Credentials') {
             steps {
                 withCredentials([
@@ -51,7 +47,7 @@ pipeline {
         }
         stage('Deploy/Run AWS Script') {
             when {
-                expression { fileExists('create_user.py') }
+                expression { fileExists('aws_connect/create_user.py') }
             }
             steps {
                 withCredentials([
@@ -60,8 +56,11 @@ pipeline {
                 ]) {
                 sh '''
                 . venv/bin/activate
-                python create_user.py
+                export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                python aws_connect/create_user.py
                 '''
+                }
             }
         }
     }
