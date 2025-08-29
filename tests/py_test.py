@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-import create_user
+from aws_connect import create_user
 
 @pytest.fixture
 def mock_boto_client():
