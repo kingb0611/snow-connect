@@ -33,13 +33,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Run tests (adapt if project includes tests)
                 sh '''
                 . venv/bin/activate
-                if [ -f tests/test.py ]; then python tests/test.py; fi
+                pip install pytest
+                pytest tests/ --maxfail=1 --disable-warnings -q
                 '''
             }
         }
+
         stage('Get AWS Credentials') {
             steps {
                 withCredentials([
