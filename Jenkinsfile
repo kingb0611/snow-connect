@@ -41,7 +41,16 @@ pipeline {
                 '''
             }
         }
-        // Optional deployment step for your AWS scripts
+        stage('Get AWS Credentials') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    sh 'echo "AWS credentials set as environment variables"'
+                }
+            }
+        }
         stage('Deploy/Run AWS Script') {
             when {
                 expression { fileExists('create-user.py') }
@@ -55,4 +64,3 @@ pipeline {
         }
     }
 }
-
