@@ -25,10 +25,15 @@ pipeline {
 
         stage('Test') {
             steps {
+                withCredentials([
+                    string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
                 sh '''
                 . venv/bin/activate
-                PYTHONPATH=./aws-connect pytest tests/py_test.py --maxfail=1 --disable-warnings -q
+                PYTHONPATH=./aws_connect pytest tests/py_test.py --maxfail=1 --disable-warnings -q
                 '''
+                }
             }
         }
 
@@ -44,12 +49,12 @@ pipeline {
         }
         stage('Deploy/Run AWS Script') {
             when {
-                expression { fileExists('create-user.py') }
+                expression { fileExists('create_user.py') }
             }
             steps {
                 sh '''
                 . venv/bin/activate
-                python create-user.py
+                python create_user.py
                 '''
             }
         }
