@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                pytest aws-connect/tests/py_test.py --maxfail=1 --disable-warnings -q
+                pytest tests/py_test.py --maxfail=1 --disable-warnings -q
                 '''
             }
         }
