@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                pytest tests/py_test.py --maxfail=1 --disable-warnings -q
+                PYTHONPATH=./aws-connect pytest tests/py_test.py --maxfail=1 --disable-warnings -q
                 '''
             }
         }
