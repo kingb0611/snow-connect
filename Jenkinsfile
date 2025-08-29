@@ -18,6 +18,7 @@ pipeline {
                 . venv/bin/activate
                 pip install --upgrade pip
                 pip install boto3
+                pip install pytest
                 '''
             }
         }
