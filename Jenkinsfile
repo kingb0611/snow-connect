@@ -27,7 +27,6 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                pip install pytest
                 pytest tests/ --maxfail=1 --disable-warnings -q
                 '''
             }
