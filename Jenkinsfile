@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout source code from GitHub
-                git url: 'https://github.com/kingb0611/snow-connect.git', branch: 'main'
+                git url: 'https://github.com/kingb0611/snow-connect.git', branch: 'master'
             }
         }
         stage('Setup Python Env') {
