@@ -1,6 +1,8 @@
+from pprint import pprint
+
 def main():
     import boto3
-    from pprint import pprint
+    
 
     INSTANCE_ID = '394168b7-6fe9-4b77-9fcf-2bddc3a1b03c'
     client = boto3.client('connect', region_name='us-east-1')
